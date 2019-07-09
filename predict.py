@@ -18,15 +18,11 @@ def preprocess(text):
 
 log.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=log.INFO)
 
-
 preprocessed = [preprocess(sys.argv[1])]
 
 log.info("vectorization")
 cv = load("cv.joblib")
 X_data = cv.transform(preprocessed)
-print (preprocessed)
-print (X_data)
-
 model = load("model.joblib")
 pred = model.predict(X_data)
-print (pred)
+print (pred[0])

@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import logging as log
 from joblib import load
 import sys
 import re
@@ -16,13 +15,17 @@ def preprocess(text):
     tokens = re.split(r"[\W]+", text)
     return tokens
 
-log.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=log.INFO)
 
+# loading pre-trained models
+cv = load("cv.joblib")
+model = load("model.joblib")
+
+#read input
 preprocessed = [preprocess(sys.argv[1])]
 
-log.info("vectorization")
-cv = load("cv.joblib")
+# process input
 X_data = cv.transform(preprocessed)
-model = load("model.joblib")
+
+# predict label
 pred = model.predict(X_data)
 print (pred[0])
